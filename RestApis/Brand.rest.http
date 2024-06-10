@@ -1,0 +1,33 @@
+### get all Role names
+GET http://localhost:5000/brand
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY2OTllMmI5NjE2ZmU3YWE5ZWZlYTYiLCJyb2xlIjoiU3VwYXIgQWRtaW4iLCJpYXQiOjE3MTA5NDcyNDksImV4cCI6MTcxMDk1MDg0OSwiYXVkIjoiNjVmNjk5ZTJiOTYxNmZlN2FhOWVmZWE2IiwiaXNzIjoibmlrdWphaXMuY29tIn0.nEQdkwW8JrTzqCC3sLc3L8kBAYP-XxKQWL8JWeBgp-o
+
+### add a Role Name
+POST http://localhost:5000/brand
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY2OTllMmI5NjE2ZmU3YWE5ZWZlYTYiLCJyb2xlIjoiU3VwYXIgQWRtaW4iLCJpYXQiOjE3MTA3NzI4NjEsImV4cCI6MTcxMDc3NjQ2MSwiYXVkIjoiNjVmNjk5ZTJiOTYxNmZlN2FhOWVmZWE2IiwiaXNzIjoibmlrdWphaXMuY29tIn0.Es8eBn2lJBGp0ir8rwlIyR4izuBIVE_UUN3v45oNK8o
+
+{
+    "name": "pc"
+}
+
+### get one Role name
+GET http://localhost:5000/brand/65da1e2d0c3778e60a34ccce
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY2OTllMmI5NjE2ZmU3YWE5ZWZlYTYiLCJyb2xlIjoiU3VwYXIgQWRtaW4iLCJpYXQiOjE3MTA3NzI4NjEsImV4cCI6MTcxMDc3NjQ2MSwiYXVkIjoiNjVmNjk5ZTJiOTYxNmZlN2FhOWVmZWE2IiwiaXNzIjoibmlrdWphaXMuY29tIn0.Es8eBn2lJBGp0ir8rwlIyR4izuBIVE_UUN3v45oNK8o
+
+### Update one Role name
+PUT http://localhost:5000/brand/65d0d902126599d9c9d0cc22
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY2OTllMmI5NjE2ZmU3YWE5ZWZlYTYiLCJyb2xlIjoiU3VwYXIgQWRtaW4iLCJpYXQiOjE3MTA3NzI4NjEsImV4cCI6MTcxMDc3NjQ2MSwiYXVkIjoiNjVmNjk5ZTJiOTYxNmZlN2FhOWVmZWE2IiwiaXNzIjoibmlrdWphaXMuY29tIn0.Es8eBn2lJBGp0ir8rwlIyR4izuBIVE_UUN3v45oNK8o
+
+{
+    "active": true
+}
+
+### Delete one Role Name
+DELETE  http://localhost:5000/brand/65d0db4beaa0c906b3440b8c
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY2OTllMmI5NjE2ZmU3YWE5ZWZlYTYiLCJyb2xlIjoiU3VwYXIgQWRtaW4iLCJpYXQiOjE3MTA3NzI4NjEsImV4cCI6MTcxMDc3NjQ2MSwiYXVkIjoiNjVmNjk5ZTJiOTYxNmZlN2FhOWVmZWE2IiwiaXNzIjoibmlrdWphaXMuY29tIn0.Es8eBn2lJBGp0ir8rwlIyR4izuBIVE_UUN3v45oNK8o
+

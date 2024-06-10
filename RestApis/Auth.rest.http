@@ -1,0 +1,13 @@
+### Login 
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "email": "droon99@yopmail.com",
+    "password": "1234"
+}
+
+### Verify User 
+GET http://localhost:5000/auth/verify-user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWVkZWIxNGVmZDM4OWYxZmU2NjY1YTAiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MTAyNTQwOTYsImV4cCI6MTcxMDI1NzY5NiwiYXVkIjoiNjVlZGViMTRlZmQzODlmMWZlNjY2NWEwIiwiaXNzIjoibmlrdWphaXMuY29tIn0.F_SCypl6Aq2EZ_6BgkORanCwV0F_MBWwyr7dRKVSy5g

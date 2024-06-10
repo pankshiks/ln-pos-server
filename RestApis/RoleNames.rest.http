@@ -1,0 +1,29 @@
+### get all Role names
+GET http://localhost:5000/role_names
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU0YWRiZTgxYjI5YTVmY2M2ZWIwNDQiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MTAwOTAzMTIsImV4cCI6MTcxMDA5MzkxMiwiYXVkIjoiNjVlNGFkYmU4MWIyOWE1ZmNjNmViMDQ0IiwiaXNzIjoibmlrdWphaXMuY29tIn0.xsAht3VJj6nMd4TCVXHNCoi7AVOzgh2nJc9lgQs3MOs
+### add a Role Name
+POST http://localhost:5000/role_names
+Content-Type: application/json
+
+{
+    "name": "supplier section",
+    "active": true
+}
+
+### get one Role name
+GET http://localhost:5000/role_names/65d0d902126599d9c9d0cc22
+Content-Type: application/json
+
+### Update one Role name
+PUT http://localhost:5000/role_names/65d0eb9773d71a57c560b51c
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU0YWRiZTgxYjI5YTVmY2M2ZWIwNDQiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MTAwOTAzMTIsImV4cCI6MTcxMDA5MzkxMiwiYXVkIjoiNjVlNGFkYmU4MWIyOWE1ZmNjNmViMDQ0IiwiaXNzIjoibmlrdWphaXMuY29tIn0.xsAht3VJj6nMd4TCVXHNCoi7AVOzgh2nJc9lgQs3MOs
+
+{
+    "name": "coupon section"
+}
+
+### Delete one Role Name
+DELETE  http://localhost:5000/role_names/65d0d902126599d9c9d0cc22
+Content-Type: application/json

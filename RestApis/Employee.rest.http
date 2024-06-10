@@ -1,0 +1,37 @@
+### get all Employee
+GET http://localhost:5000/employee
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU0YWRiZTgxYjI5YTVmY2M2ZWIwNDQiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MDk0ODc3MzcsImV4cCI6MTcwOTQ5MTMzNywiYXVkIjoiNjVlNGFkYmU4MWIyOWE1ZmNjNmViMDQ0IiwiaXNzIjoibmlrdWphaXMuY29tIn0.SlNaIiYdOy7sXhujSdS4QRni8tC9rkToXQcgVBTPrEQ
+### add a Employee
+POST http://localhost:5000/employee
+Content-Type: application/json
+
+{
+    "first_name": "nikita",
+    "last_name": "jaiswal",
+    "role_id": "55",
+    "phone_no": "+859923425",
+    "email": "niki@yopmail.com",
+    "password": "123"
+}
+
+### get one Employee
+GET http://localhost:5000/employee/65cb9ee8991952f56e9b4907
+Content-Type: application/json
+
+### Update one Employee
+PUT http://localhost:5000/employee/65cb9ee8991952f56e9b4907
+Content-Type: application/json
+
+{
+    "first_name": "niku",
+    "last_name": "jais",
+    "role_id": "55",
+    "phone_no": "+8599235238",
+    "email": "nikita@yopmail.com",
+    "password": "123"
+}
+
+### Delete one Employee
+DELETE  http://localhost:5000/employee/65cb9ee8991952f56e9b4907
+Content-Type: application/json

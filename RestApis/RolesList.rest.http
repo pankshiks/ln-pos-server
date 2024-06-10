@@ -1,0 +1,42 @@
+### get all Role names
+GET http://localhost:5000/role_list
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU0YWRlNzgxYjI5YTVmY2M2ZWIwODQiLCJyb2xlIjoiTWFuYWdlciIsImlhdCI6MTcwOTk5NDY1NywiZXhwIjoxNzA5OTk4MjU3LCJhdWQiOiI2NWU0YWRlNzgxYjI5YTVmY2M2ZWIwODQiLCJpc3MiOiJuaWt1amFpcy5jb20ifQ.6A28_dtQyaYqo8BM7vBhH6ezf4RF34zuSNoIB0U9NCM
+
+### add a Role Name
+POST http://localhost:5000/role_list
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU0YWRiZTgxYjI5YTVmY2M2ZWIwNDQiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MDk5OTMzNDUsImV4cCI6MTcwOTk5Njk0NSwiYXVkIjoiNjVlNGFkYmU4MWIyOWE1ZmNjNmViMDQ0IiwiaXNzIjoibmlrdWphaXMuY29tIn0.pvrr5V5LIutO9Di0f-5oURMFnDANjmnBb3EYtF4NQKk
+
+{
+    "name": "Manager",
+    "roles": [
+        "660111f9443094e03352b3c0",
+        "660111fe443094e03352b3c2",
+        "66011205443094e03352b3c4",
+        "66011228443094e03352b3c6"
+    ],
+    "status": true
+}
+
+### get one Role name
+GET http://localhost:5000/role_list/65da1e2d0c3778e60a34ccce
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU0YWRiZTgxYjI5YTVmY2M2ZWIwNDQiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MDk5OTMzNDUsImV4cCI6MTcwOTk5Njk0NSwiYXVkIjoiNjVlNGFkYmU4MWIyOWE1ZmNjNmViMDQ0IiwiaXNzIjoibmlrdWphaXMuY29tIn0.pvrr5V5LIutO9Di0f-5oURMFnDANjmnBb3EYtF4NQKk
+
+### Update one Role name
+PUT http://localhost:5000/role_list/65d0d902126599d9c9d0cc22
+Content-Type: application/json
+
+{
+    "active": true
+}
+
+### Delete one Role Name
+DELETE  http://localhost:5000/role_list/65d0db4beaa0c906b3440b8c
+Content-Type: application/json
+
+### get all Role names
+GET http://localhost:5000/role_list/role-items
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWVkZWIxNGVmZDM4OWYxZmU2NjY1YTAiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MTAyNTQwOTYsImV4cCI6MTcxMDI1NzY5NiwiYXVkIjoiNjVlZGViMTRlZmQzODlmMWZlNjY2NWEwIiwiaXNzIjoibmlrdWphaXMuY29tIn0.F_SCypl6Aq2EZ_6BgkORanCwV0F_MBWwyr7dRKVSy5g
