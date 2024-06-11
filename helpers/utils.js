@@ -1,3 +1,8 @@
+const puppeteer = require('puppeteer');
+const fs = require('fs');
+const path = require("path");
+
+
 const calculateOrderDeatils = (products, items) => {
     let order_amount = 0, total_tax = 0, discount = 0, product=[]
     products.forEach((item, index) => {
@@ -15,4 +20,29 @@ const calculateOrderDeatils = (products, items) => {
     }
 };
 
-module.exports = { calculateOrderDeatils }
+const createInvoice = async(file_name) => {
+    const browser = await puppeteer.launch({
+        headless: true
+    })
+
+    // create a new page
+    const page = await browser.newPage()
+
+    // set your html as the pages content
+    const html = fs.readFileSync(`${__dirname}/template.html`, 'utf8')
+    await page.setContent(html, {
+        waitUntil: 'domcontentloaded'
+    })
+    // or a .pdf file
+    await page.pdf({
+        format: 'A4',
+        path: `public/${file_name}.pdf`
+    })
+
+    // close the browser
+    await browser.close()
+
+    return `${file_name}.pdf`
+}
+
+module.exports = { calculateOrderDeatils, createInvoice }

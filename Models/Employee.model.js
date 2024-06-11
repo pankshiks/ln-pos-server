@@ -3,34 +3,34 @@ const Schema = mongoose.Schema
 const bcrypt = require('bcrypt')
 
 const EmployeeSchema = new Schema({
-    first_name: {
+    name: {
         type: String,
         required: true,
     },
-    last_name: {
-        type: String,
-        required: true,
-    },
-    image: {
-        type: Buffer,
-        required: true,
-    },
-    role_id: {
-        required: true,
-        type: Schema.Types.ObjectId,
-        ref: 'RoleName'
-    },
+    // last_name: {
+    //     type: String,
+    //     required: true,
+    // },
+    // image: {
+    //     type: Buffer,
+    //     required: true,
+    // },
+    // role_id: {
+    //     required: true,
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'RoleName'
+    // },
     phone_no: {
         type: String,
         required: true,
         unique: true
     },
-    email: {
-        type: String,
-        required: true,
-        lowercase: true,
-        unique: true
-    },
+    // email: {
+    //     type: String,
+    //     required: true,
+    //     lowercase: true,
+    //     unique: true
+    // },
     password: {
         type: String,
         required: true

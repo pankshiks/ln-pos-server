@@ -1,15 +1,15 @@
 const Employee = require('../Models/Employee.model')
 
 exports.getAllEmployees = async (limit, skip) => {
-  const totalCount = await Employee.countDocuments({email: { $ne: "droon99@yopmail.com" }});
-  let query = Employee.find({ email: { $ne: "droon99@yopmail.com" } }).sort({createdAt: -1});
-  if (limit !== 'null') {
-    query = query.limit(limit);
-  }
+  const totalCount = await Employee.countDocuments();
+  let query = Employee.find().select({ name: 1, phone_no: 1}).sort({createdAt: -1});
+  // if (limit !== 'null') {
+  //   query = query.limit(limit);
+  // }
 
-  if (skip !== 'null') {
-    query = query.skip(skip);
-  }
+  // if (skip !== 'null') {
+  //   query = query.skip(skip);
+  // }
   let employees = await query;
   return {
     employees: employees, 
@@ -24,7 +24,7 @@ exports.createEmployee = async (employee) => {
   return await Employee.create(employee);
 };
 exports.getEmployeeById = async (id) => {
-  return await Employee.findById(id);
+  return await Employee.findById(id).select({ name: 1, phone_no: 1});
 };
  
 exports.updateEmployee = async (id, employee) => {

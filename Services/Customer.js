@@ -26,6 +26,9 @@ exports.createCustomer = async (data) => {
 exports.getCustomerById = async (id) => {
   return await Customer.findById(id);
 };
+exports.getCustomerByEmail = async (mobile_no) => {
+  return await Customer.findOne({mobile_no: mobile_no}).select({ _id: 1});
+}
  
 exports.updateCustomer = async (id, data) => {
   return await Customer.findByIdAndUpdate(id, data);

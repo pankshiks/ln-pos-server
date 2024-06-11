@@ -37,12 +37,16 @@ const OrderSchema = new Schema({
     },
     customer: {
         type: Schema.Types.ObjectId,
-        ref: 'Customer'
+        ref: 'customer'
     },
     product: {
         type: Schema.Types.Array,
-        ref: 'Products'
+        ref: 'products'
     },
+    invoice: {
+        type: Schema.Types.ObjectId,
+        ref: 'invoice'
+    }
 }, {
     timestamps: true
 })

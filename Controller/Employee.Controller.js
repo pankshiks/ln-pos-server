@@ -7,24 +7,16 @@ exports.getAllEmployees = async (req, res, next) => {
     let limit = req.query.limit; 
     let skip = req.query.skip; 
     let response = await employeeService.getAllEmployees(limit, skip);
-    const data = response.employees.map(employee => {
-      const { password, ...rest } = employee._doc;
-      return rest;
-    });
-    res.json({ data: {
-        employees: data, 
-        pagination: response.pagination
-    }, status: "success" });
+    res.json({ data: response  });
   } catch (err) {
     next(err)
   }
 };
 
 exports.createEmployee = async (req, res, next) => {
-  const { first_name, last_name, role_id, phone_no, email, password } = req.body;
-  const { file } = req;
+  const { name, phone_no, password } = req.body;
   try {
-    const newEmployeeData = { first_name, last_name, image: file.buffer, role_id, phone_no, email, password };
+    const newEmployeeData = { name, phone_no, password };
     await employeeService.createEmployee(newEmployeeData);
     res.json({ message: "Employee Added Successfully", status: "success" });
   } catch (err) {
@@ -44,15 +36,11 @@ exports.getEmployeeById = async (req, res, next) => {
 
 exports.updateEmployee = async (req, res, next) => {
   try {
-    const { file } = req;
-    const { password } = req.body
-    let updatedData = {...req.body, image: file.buffer}
-    if(password) {
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, salt);
-      updatedData = {...updatedData, password: hashedPassword}
-    }
-    const employee = await employeeService.updateEmployee(req.params.id, updatedData);
+    const { name, password } = req.body
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const employee = await employeeService.updateEmployee(req.params.id, { name: name, password: hashedPassword });
     if(!employee) throw createError.NotFound()
     res.json({ message: "Employee Updated Successfully", status: "success" });
   } catch (err) {

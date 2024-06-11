@@ -3,13 +3,13 @@ const createError = require('http-errors')
 
 
 module.exports = {
-    signAccessToken: (userId, roleId, signIn) => {
+    signAccessToken: (userId) => {
         return new Promise((resolve, reject) => {
-            const payload = {userId: userId, role: roleId}
+            const payload = {userId: userId}
             const secret = process.env.ACCESS_TOKEN_SECRET
             const options = {
-                expiresIn: signIn ? '1y': '1d',
-                issuer: 'nikujais.com',
+                expiresIn: '1y',
+                issuer: 'nikitalnweb.com',
                 audience: userId
             }
             JWT.sign(payload, secret, options, (err, token) => {

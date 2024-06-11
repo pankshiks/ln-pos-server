@@ -7,7 +7,7 @@ exports.getAllCustomers = async (req, res, next) => {
     let limit = req.query.limit; 
     let skip = req.query.skip; 
     const customer = await CustomerService.getAllCustomers(limit, skip);
-    res.json({ data: customer, status: "success" });
+    res.json({ data: customer });
   } catch (err) {
     next(err)
   }
@@ -15,8 +15,11 @@ exports.getAllCustomers = async (req, res, next) => {
 
 exports.createCustomer = async (req, res, next) => {
     try {
-        await CustomerService.createCustomer(req.body);
-        res.json({ message: "Customer Added Successfully", status: "success" });
+        const { mobile_no } = req.body
+        const exists = await CustomerService.getCustomerByEmail(mobile_no)
+        if(exists) throw createError.Conflict({ customer: exists })
+        const customer = await CustomerService.createCustomer(req.body);
+        res.json({ message: "Customer Added Successfully", customer });
     } catch (err) {
         next(err)
     }
@@ -26,7 +29,7 @@ exports.getCustomerById = async (req, res, next) => {
   try {
     const customer = await CustomerService.getCustomerById(req.params.id);
     if(!customer) throw createError.NotFound()
-    res.json({ data: customer, status: "success" });
+    res.json({ data: customer });
   } catch (err) {
     next(err)
   }
@@ -36,7 +39,7 @@ exports.updateCustomer = async (req, res, next) => {
   try {
     const customer = await CustomerService.updateCustomer(req.params.id, req.body);
     if(!customer) throw createError.NotFound()
-    res.json({ message: "Customer Updated Successfully", status: "success" });
+    res.json({ message: "Customer Updated Successfully" });
   } catch (err) {
     next(err)
   }
@@ -46,7 +49,7 @@ exports.deleteCustomer = async (req, res, next) => {
   try {
     const customer = await CustomerService.deleteCustomer(req.params.id);
     if(!customer) throw createError.NotFound()
-    res.json({ message: "Customer Deleted Successfully", status: "success" });
+    res.json({ message: "Customer Deleted Successfully" });
   } catch (err) {
     next(err)
   }

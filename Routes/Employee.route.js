@@ -16,12 +16,12 @@ const router = express.Router()
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-router.use(verifyAccessToken, authorizeRoles('admin', 'super_admin', 'manager', 'employee'))
+// router.use(verifyAccessToken, authorizeRoles('admin', 'super_admin', 'manager', 'employee'))
 
-router.post("/", upload.single('image'), createEmployee);
-router.put("/:id", upload.single('image'), updateEmployee);
+// router.post("/", upload.single('image'), createEmployee);
+// router.put("/:id", upload.single('image'), updateEmployee);
 
-router.route("/").get(getAllEmployees);
-router.route("/:id").get(getEmployeeById).delete(deleteEmployee);
+router.route("/").get(getAllEmployees).post(createEmployee);
+router.route("/:id").get(getEmployeeById).put(updateEmployee).delete(deleteEmployee);
 
 module.exports = router

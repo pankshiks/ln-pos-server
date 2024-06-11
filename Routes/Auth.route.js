@@ -9,59 +9,54 @@ const { getEmployeeById } = require('../Services/Employee');
 
 router.post('/login',async (req, res, next) => {
     try {
-        const { email, password, signIn} = req.body
-        // const result = await authSchema.validateAsync(req.body)
+        const { username, password } = req.body
 
-        const user = await Employee.findOne({email: email})
+        const user = await Employee.findOne({phone_no: username})
         if(!user) throw createError.NotFound("Invalid Username/Passowrd")
 
         const isMatch = await user.isValidPassword(password)
         if(!isMatch) throw createError.Unauthorized("Invalid Username/Passowrd")
       
         
-        const role = await getRoleListById(user.role_id)
-        if(!role) throw createError.NotFound("Invalid Username/Passowrd")
+        // const role = await getRoleListById(user.role_id)
+        // if(!role) throw createError.NotFound("Invalid Username/Passowrd")
         
-        const accessToken = await signAccessToken(user.id, role.name, signIn)
+        const accessToken = await signAccessToken(user.id)
 
-        res.send({token: accessToken, role: role.name, user: {
-            first_name: user.first_name,
-            last_name: user.last_name,
-            profile: user.profile_picture_id,
-            email: user.email,
-            role: role.name,
-            picture: user.image
+        res.send({token: accessToken, user: {
+            name: user.name,
+            phone_no: user.phone_no
         }})
     } catch (error) {
         if(error.isJoi === true) return next(createError.BadRequest('Invalid Username/Passowrd'))
         next(error)
     }
 })
-router.get('/verify-user', verifyAccessToken, async (req, res, next) => {
-    try {
-        const user_id = req.payload.userId;
-        const user = await getEmployeeById(user_id);
+// router.get('/verify-user', verifyAccessToken, async (req, res, next) => {
+//     try {
+//         const user_id = req.payload.userId;
+//         const user = await getEmployeeById(user_id);
 
-        if (!user) {
-            throw createError(404, "User not found");
-        }
+//         if (!user) {
+//             throw createError(404, "User not found");
+//         }
 
-        res.send({
-            first_name: user.first_name,
-            last_name: user.last_name,
-            profile: user.profile_picture_id,
-            email: user.email,
-            role: req.payload.role,
-            picture: user.image
-        });
-    } catch (error) {
-        if (error.statusCode) {
-            return res.status(error.statusCode).json({ message: error.message });
-        }
-        console.error(error);
-        res.status(500).json({ message: "Internal server error" });
-    }
-});
+//         res.send({
+//             first_name: user.first_name,
+//             last_name: user.last_name,
+//             profile: user.profile_picture_id,
+//             email: user.email,
+//             role: req.payload.role,
+//             picture: user.image
+//         });
+//     } catch (error) {
+//         if (error.statusCode) {
+//             return res.status(error.statusCode).json({ message: error.message });
+//         }
+//         console.error(error);
+//         res.status(500).json({ message: "Internal server error" });
+//     }
+// });
 
 router.delete('/logout',async (req, res, next) => {
     res.send('Logout route')
