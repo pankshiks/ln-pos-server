@@ -36,6 +36,20 @@ app.get('/', (req, res) => {
     res.send('Hello from server');
 });
 
+app.get("/webhook", (req, res) => {
+    const mode = req.query["hub.mode"];
+    const challenge = req.query["hub.challenge"];
+    const verify_token = req.query["hub.verify_token"];
+    const token = "ln-pos-app";
+
+    if (mode === "subscribe" && verify_token === token) {
+        res.status(200).send(challenge);
+    } else {
+        res.sendStatus(403);
+    }
+});
+
+
 app.use('/auth', AuthRoute)
 app.use('/employee', EmployeeRoute)
 // app.use('/role_names', RoleNamesRoute)

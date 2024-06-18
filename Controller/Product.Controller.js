@@ -1,21 +1,24 @@
 const createError = require("http-errors");
 const ProductService = require("../Services/Product");
+const mongoose = require("mongoose");
+
 
 exports.getAllProducts = async (req, res, next) => {
   try {
     let query = {};
-    const limit = req.query.limit , skip = req.query.skip; 
-
-    const { filter } = req.query;
-    
+    const { filter, category } = req.query;
     if(filter) {
       query.$or = [
         { name: { $regex: filter, $options: 'i' } },
         { sku: { $regex: filter, $options: 'i' } }
       ];
     }
-    const products = await ProductService.getAllProducts(query, limit ,skip);
-    res.json({ data: products, status: 200 });
+    if(category && mongoose.Types.ObjectId.isValid(category)) {
+      query.category = category;
+    }
+
+    const products = await ProductService.getAllProducts(query);
+    res.status(200).json(products);
   } catch (err) {
     next(err)
   }
@@ -29,7 +32,7 @@ exports.createProduct = async (req, res, next) => {
           name, description, sku, brand, qtn, category, supplier, selling_price, purchase_price, discount, tax, 
           image: file.filename,
       });
-      res.json({ message: "Product Added Successfully", status: 201 });
+      res.status(201).json({ message: "Product Added Successfully" });
     } catch (err) {
         next(err)
     }
@@ -39,7 +42,7 @@ exports.getProductById = async (req, res, next) => {
   try {
     const product = await ProductService.getProductById(req.params.id);
     if(!product) throw createError.NotFound()
-    res.json({ data: product, status: 200});
+    res.status(200).json(product);
   } catch (err) {
     next(err)
   }
@@ -66,7 +69,7 @@ exports.updateProduct = async (req, res, next) => {
 
     const product = await ProductService.updateProduct(req.params.id, updateFields);
     if(!product) throw createError.NotFound()
-    res.json({ message: "Product Updated Successfully", status: 202 });
+    res.status(202).json({ message: "Product Updated Successfully" });
   } catch (err) {
     next(err)
   }
@@ -76,7 +79,7 @@ exports.deleteProduct = async (req, res, next) => {
   try {
     const product = await ProductService.deleteProduct(req.params.id);
     if(!product) throw createError.NotFound()
-    res.json({ message: "Product Deleted Successfully", status: 202 });
+    res.status(202).json({ message: "Product Deleted Successfully" });
   } catch (err) {
     next(err)
   }

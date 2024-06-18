@@ -17,3 +17,7 @@ exports.updatInvoice = async (id, data) => {
 exports.deleteInvoice = async (id) => {
   return await Invoice.findByIdAndDelete(id);
 };
+
+exports.getInvoiceByInvoiceId = async (id) => {
+  return await Invoice.findOne({ invoice_id: id});
+};

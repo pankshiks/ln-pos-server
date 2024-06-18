@@ -4,7 +4,8 @@ const {
     createInvoice,
     getInvoiceById,
     updatInvoice,
-    deleteInvoice
+    deleteInvoice,
+    sendInvoice
 } = require('../Controller/Invoice.Controller')
 const { verifyAccessToken } = require('../helpers/jwt_helpers');
 const authorizeRoles = require('../helpers/authorize_roles');
@@ -14,5 +15,6 @@ const router = express.Router()
 
 router.route("/").get(getAllInvoice).post(createInvoice);
 router.route("/:id").get(getInvoiceById).put(updatInvoice).delete(deleteInvoice);
+router.route("/send/:id").get(sendInvoice);
 
 module.exports = router

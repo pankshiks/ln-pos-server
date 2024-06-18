@@ -1,7 +1,9 @@
 const createError = require("http-errors");
 const OrderService = require("../Services/Order");
-const Product = require('../Models/Product.model');
-const { calculateOrderDeatils, createInvoice } = require("../helpers/utils");
+const ProductService = require("../Services/Product");
+const CustomerService = require("../Services/Customer");
+const InvoiceService = require("../Services/Invoice");
+const { calculateOrderDeatils, generatePDF } = require("../helpers/utils");
 const moment = require('moment');
 
 exports.getAllOrders = async (req, res, next) => {
@@ -32,15 +34,37 @@ exports.getAllOrders = async (req, res, next) => {
 
 exports.createOrder = async (req, res, next) => {
   try {
-    const { product_ids, customer, payment_method, invoice} = req.body
-    const products = await Promise.all(product_ids.map(async (element) => {
-        return await Product.findById(element.id);
-    }));
-    const { order_amount, total_tax, discount, paid_amount, product} = await calculateOrderDeatils (products, product_ids)
-    const order = await OrderService.createOrder({order_amount, total_tax, discount, paid_amount, product, customer, payment_method, invoice});
-    res.json({ data: order, message: "Order created Successfully" });
+    const { product_ids, customer, payment_method } = req.body;
+
+    // Fetch products concurrently using Promise.all
+    const products = await Promise.all(
+      product_ids.map(async ({ id, qtn }) => {
+        const itemDoc = await ProductService.getProductById(id);
+        const item = itemDoc.toObject();
+        return { ...item, qtn };
+      })
+    );
+
+    // Calculate order details
+    const { order_amount, total_tax, discount, paid_amount, product } = await calculateOrderDeatils(products);
+
+    // Create customer and order concurrently
+    const customerRes = await CustomerService.createCustomer(customer);
+    if (!customerRes) throw new Error('Customer creation failed');
+
+    // Create invoice first
+    const invoice = await InvoiceService.createInvoice({ customer_details: customer, cart_items: products });
+    if (!invoice) throw new Error('Invoice creation failed');
+
+    const invoiceExists = await generatePDF({ customer, products, filename:`${invoice.invoice_id}.pdf`, invoice: invoice.invoice_id })
+    if(invoiceExists) {
+      await InvoiceService.updatInvoice(invoice._id, { invoice_pdf: invoiceExists })
+    }
+    await OrderService.createOrder({ order_amount, total_tax, discount, paid_amount, product, customer: customerRes._id, payment_method, invoice: invoice._id})
+
+    res.status(201).json({invoice: invoice.invoice_id, message: "Order created successfully" });
   } catch (err) {
-    next(err)
+    next(err);
   }
 };
 

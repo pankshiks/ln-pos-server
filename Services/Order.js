@@ -27,7 +27,7 @@ exports.createOrder = async (data) => {
   return await Order.create(data);
 };
 exports.getOrderById = async (id) => {
-  return await Order.findById(id).populate("customer");
+  return await Order.findById(id);
 };
  
 exports.updateOrder = async (id, data) => {
